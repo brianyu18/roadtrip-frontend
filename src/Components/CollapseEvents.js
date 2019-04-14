@@ -31,7 +31,7 @@ export default class CollapseEvents extends Component {
       love: this.state.love,
       hate: this.state.hate
     }
-    fetch(`http://localhost:5000/events/${this.props.itemID}`,{
+    fetch(`https://roadtrip-backend.herokuapp.com/events/${this.props.itemID}`,{
       method: 'PATCH',
       headers: {'Content-Type':'application/json','Authorization':`Bearer ${localStorage.getItem('accessToken_roadTrip')}`},
       body: JSON.stringify(eventData)

@@ -13,7 +13,7 @@ class RegisterForm extends Component{
   }
 
   register=()=>{
-    fetch('http://localhost:5000/users',{
+    fetch('https://roadtrip-backend.herokuapp.com/users',{
       method: "POST",
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(this.state),

@@ -65,7 +65,7 @@ export default class BetterConvo extends Component {
   //     }
   //   }
   //   setInterval(
-  //   ()=>{fetch(`http://localhost:5000/messages/${localStorage.destination}`, options)
+  //   ()=>{fetch(`https://roadtrip-backend.herokuapp.com/messages/${localStorage.destination}`, options)
   //   .then(res => res.json())
   //   .then(messages_response => {
   //     if(messages_response.data.messages.length > this.state.messages.length){
@@ -97,7 +97,7 @@ export default class BetterConvo extends Component {
       })
     }
     console.log(options)
-    fetch("http://localhost:5000/messages", options)
+    fetch("https://roadtrip-backend.herokuapp.com/messages", options)
     .then(res => res.json())
     .then(message_response => {
       this.setState({

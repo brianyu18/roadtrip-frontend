@@ -19,7 +19,7 @@ class TripContainer extends Component {
   }
 
   fetchTrips=()=>{
-    fetch('http://localhost:5000/trips',{
+    fetch('https://roadtrip-backend.herokuapp.com/trips',{
       headers: {"Authorization": `Bearer ${localStorage.getItem('accessToken_roadTrip')}`}
     })
     .then(res => res.json())
@@ -35,7 +35,7 @@ class TripContainer extends Component {
     let data={
       destination: this.state.destination
     }
-    fetch('http://localhost:5000/trips',{
+    fetch('https://roadtrip-backend.herokuapp.com/trips',{
       method: "POST",
       headers: {'Content-Type':'application/json','Authorization':`Bearer ${localStorage.getItem('accessToken_roadTrip')}`},
       body: JSON.stringify(data),

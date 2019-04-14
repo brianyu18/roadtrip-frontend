@@ -19,7 +19,7 @@ class EventClickModal extends Component {
   componentDidMount(){
     const key = `${process.env.REACT_APP_API_KEY}`;
 
-    fetch(`http://localhost:5000/findevent?place=${this.props.info.place_id}`)
+    fetch(`https://roadtrip-backend.herokuapp.com/findevent?place=${this.props.info.place_id}`)
     .then(res => res.json())
     .then(details => {
       console.log("success",details);
@@ -32,7 +32,7 @@ class EventClickModal extends Component {
   componentDidUpdate(prevProps){
     const key = `${process.env.REACT_APP_API_KEY}`;
     if(this.props.info === undefined || this.props.info.place_id !=prevProps.info.place_id){
-      fetch(`http://localhost:5000/findevent?place=${this.props.info.place_id}`)
+      fetch(`https://roadtrip-backend.herokuapp.com/findevent?place=${this.props.info.place_id}`)
       .then(res => res.json())
       .then(details => {
         console.log("success",details);
@@ -76,7 +76,7 @@ handleOpen = () => this.setState({ modalOpen: true })
 handleClose = () => this.setState({ modalOpen: false })
 
 saveToBack = () =>{
-  fetch('http://localhost:5000/events'
+  fetch('https://roadtrip-backend.herokuapp.com/events'
   )
   .then(res => res.json())
   .then(newEvent => console.log(newEvent))

@@ -40,7 +40,6 @@ setPrice=(e, value)=>{
 }
 
 citySearching=()=>{
-  console.log("key",key)
   console.log("show city",this.state.searchCity);
   const search = this.state.searchTerm.split(' ').join('+')
   const city = this.state.searchCity.split(' ').join('+')
@@ -50,10 +49,11 @@ citySearching=()=>{
     'Content-Type': 'application/json'
   }
 
-  fetch(`http://localhost:5000/findcord?city=${city}`,
+  fetch(`https://roadtrip-backend.herokuapp.com/findcord?city=${city}`,
   {'headers': header})
   .then(res => res.json())
   .then(location =>{
+    console.log("see cord", location)
     console.log("find cordinate", location.results[0].geometry.location)
     this.setState({
       searchCord: location.results[0].geometry.location
@@ -75,7 +75,7 @@ searchTermFind=()=>{
     'Content-Type': 'application/json'
   }
 
-  fetch(`http://localhost:5000/find?location=${cord.lat},${cord.lng}&search=${search}`,
+  fetch(`https://roadtrip-backend.herokuapp.com/find?location=${cord.lat},${cord.lng}&search=${search}`,
   {'headers': header})
   .then(res => res.json())
   .then(locationDets=>{
@@ -121,7 +121,7 @@ componentDidMount() {
 const search = this.state.searchTerm.split(' ').join('+')
 const city = this.state.searchCity
 
-fetch("http://localhost:5000/events",{
+fetch("https://roadtrip-backend.herokuapp.com/events",{
   headers: {'Authorization':`Bearer ${localStorage.getItem('accessToken_roadTrip')}`},
 })
 .then(res => res.json())
@@ -141,12 +141,13 @@ fetch("http://localhost:5000/events",{
     filteredEvents: filterEvents
     })
   })
+.catch((error)=> {console.log("invalid login", error)})
 }
 
   fakeDataFetch=()=>{
     const search = this.state.searchTerm.split(' ').join('+')
     const city = this.state.searchCity
-    fetch("http://localhost:3002/locations")
+    fetch("https://roadtrip-backend.herokuapp.com/locations")
     .then(res => res.json())
     .then(data => {
     this.setState({
@@ -182,7 +183,7 @@ fetch("http://localhost:5000/events",{
       website: item.website,
       trip_id: localStorage.getItem('destination')
     }
-    fetch('http://localhost:5000/events',{
+    fetch('https://roadtrip-backend.herokuapp.com/events',{
       method: 'POST',
       headers: {'Content-Type':'application/json','Authorization':`Bearer ${localStorage.getItem('accessToken_roadTrip')}`},
       body: JSON.stringify(eventData)
