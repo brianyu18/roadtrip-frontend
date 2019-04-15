@@ -55,7 +55,7 @@ class EventClickModal extends Component {
 }
 
 imageSet=()=>{
-  const key = process.env.get_data}
+  const key = process.env.get_data
   console.log('see key', key)
   if(this.state.details.length !== 0){
     console.log("check",this.state.details);
