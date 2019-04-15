@@ -17,7 +17,7 @@ class EventClickModal extends Component {
   }
 
   componentDidMount(){
-    const key = `${process.env.REACT_APP_API_KEY}`;
+    const key = `${process.env.get_data}`;
 
     fetch(`https://roadtrip-backend.herokuapp.com/findevent?place=${this.props.info.place_id}`)
     .then(res => res.json())
@@ -30,7 +30,7 @@ class EventClickModal extends Component {
   }
 
   componentDidUpdate(prevProps){
-    const key = `${process.env.REACT_APP_API_KEY}`;
+    const key = `${process.env.get_data}`;
     if(this.props.info === undefined || this.props.info.place_id !=prevProps.info.place_id){
       fetch(`https://roadtrip-backend.herokuapp.com/findevent?place=${this.props.info.place_id}`)
       .then(res => res.json())
@@ -56,7 +56,6 @@ class EventClickModal extends Component {
 
 imageSet=()=>{
   const key = process.env.get_data
-  console.log('see key', key)
   if(this.state.details.length !== 0){
     console.log("check",this.state.details);
     let images = this.state.details.photos.map(det=>{

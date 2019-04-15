@@ -15,7 +15,7 @@ showPrice = (price) => {
 buttonControl=()=>{
   console.log("checkthis", this.props.singleEvent)
   console.log("checktimeline", this.props.timeline);
-  const key = `${process.env.REACT_APP_API_KEY}`;
+  const key = `${process.env.get_data}`;
   const photo = this.props.singleEvent.photos[0].photo_reference
   const image = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${key}`
 
@@ -42,7 +42,7 @@ render(){
   console.log("checkthis", this.props.singleEvent)
   console.log("checktimeline", this.props.timeline);
 
-  const key = `${process.env.REACT_APP_API_KEY}`;
+  const key = `${process.env.get_data}`;
   const photo = this.props.singleEvent.photos[0].photo_reference
   const image = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${key}`
 
