@@ -258,12 +258,12 @@ fetch("https://roadtrip-backend.herokuapp.com/events",{
           <div>
             <TripTimeline timeline={this.state.timeLine}/>
           </div>
-          {console.log('banana', process.env.get_data)}
+          {console.log('banana', process.env.REACT_APP_GET_DATA)}
           <div style={{"width":"auto", "height":"50vh", "display":"inline"}}>
           <MapWithInfo
             focus = {this.state.focus}
             markers={this.setMarkers}
-            // googleMapURL="https://maps.googleapis.com/maps/api/js?key=`${process.env.get_data}`.exp&libraries=geometry,drawing,places"
+            // googleMapURL="https://maps.googleapis.com/maps/api/js?key=`${process.env.REACT_APP_GET_DATA}`.exp&libraries=geometry,drawing,places"
             // loadingElement={<div style={{ height: `100%` }} />}
             // containerElement={<div style={{ height: `400px` }} />}
             // mapElement={<div style={{ height: `100%` }} />}

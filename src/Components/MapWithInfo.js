@@ -81,5 +81,5 @@ export class MapWithInfo extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: process.env.get_data
+  apiKey: process.env.REACT_APP_GET_DATA
 })(MapWithInfo)

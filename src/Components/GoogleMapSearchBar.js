@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 
 
-const API_KEY = `${process.env.get_data}`  // how to get key - step are below
+const API_KEY = `${process.env.REACT_APP_GET_DATA}`  // how to get key - step are below
 
 class GoogleMapSearchBar extends Component {
   constructor(props) {

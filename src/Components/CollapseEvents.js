@@ -49,7 +49,7 @@ export default class CollapseEvents extends Component {
   render() {
     const { activeIndex } = this.state
     const { visible } = this.state
-    const key = `${process.env.get_data}`;
+    const key = `${process.env.REACT_APP_GET_DATA}`;
     const photo = this.props.singleItem['photo-reference']
     const image = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${key}`
 
