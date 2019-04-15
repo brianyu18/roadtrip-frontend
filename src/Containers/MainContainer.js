@@ -258,7 +258,7 @@ fetch("https://roadtrip-backend.herokuapp.com/events",{
           <div>
             <TripTimeline timeline={this.state.timeLine}/>
           </div>
-          {console.log('banana', process.env.get_data);}
+          {console.log('banana', process.env.get_data)}
           <div style={{"width":"auto", "height":"50vh", "display":"inline"}}>
           <MapWithInfo
             focus = {this.state.focus}
