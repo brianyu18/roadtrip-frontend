@@ -55,7 +55,7 @@ class EventClickModal extends Component {
 }
 
 imageSet=()=>{
-  const key = `${process.env.REACT_APP_API_KEY}`;
+  const key = `${process.env.get_data}`;
   if(this.state.details.length !== 0){
     console.log("check",this.state.details);
     let images = this.state.details.photos.map(det=>{
