@@ -145,7 +145,7 @@ export default class BetterConvo extends Component {
   }
 
   avatar = (comment) => {
-    return "http://profilepicturesdp.com/wp-content/uploads/2018/06/avatar-profile-pictures-1.png' : 'http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-eskimo-girl.png"
+    return comment.user.username === 'luke' ? 'http://profilepicturesdp.com/wp-content/uploads/2018/06/avatar-profile-pictures-1.png' : 'http://profilepicturesdp.com/wp-content/uploads/2018/06/avatar-profile-pictures-1.png'
   }
 
   // showMessage=()=>{
