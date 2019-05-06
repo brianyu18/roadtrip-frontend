@@ -57,24 +57,24 @@ export default class BetterConvo extends Component {
     trip_id: localStorage.destination
   }
 
-  // componentDidMount(){
-  //   const options = {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Authorization": `Bearer ${localStorage.accessToken_roadTrip}`
-  //     }
-  //   }
-  //   setInterval(
-  //   ()=>{fetch(`https://roadtrip-backend.herokuapp.com/messages/${localStorage.destination}`, options)
-  //   .then(res => res.json())
-  //   .then(messages_response => {
-  //     if(messages_response.data.messages.length > this.state.messages.length){
-  //       this.setState({
-  //         messages: messages_response.data.messages
-  //       },()=>{console.log("see",this.state.messages)})
-  //     }
-  //   })}, 1000)
-  // }
+  componentDidMount(){
+    const options = {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.accessToken_roadTrip}`
+      }
+    }
+    setInterval(
+    ()=>{fetch(`https://roadtrip-backend.herokuapp.com/messages/${localStorage.destination}`, options)
+    .then(res => res.json())
+    .then(messages_response => {
+      if(messages_response.data.messages.length > this.state.messages.length){
+        this.setState({
+          messages: messages_response.data.messages
+        },()=>{console.log("see",this.state.messages)})
+      }
+    })}, 1000)
+  }
 
   componentDidUpdate(){
     const chatWindow = document.querySelector(".message-box");
@@ -145,7 +145,7 @@ export default class BetterConvo extends Component {
   }
 
   avatar = (comment) => {
-    return comment.user.username === 'luke' ? 'http://profilepicturesdp.com/wp-content/uploads/2018/06/avatar-profile-pictures-1.png' : 'http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-eskimo-girl.png'
+    return "http://profilepicturesdp.com/wp-content/uploads/2018/06/avatar-profile-pictures-1.png' : 'http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-eskimo-girl.png"
   }
 
   // showMessage=()=>{
