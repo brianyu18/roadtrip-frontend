@@ -3,6 +3,7 @@ import Rate from 'antd/lib/rate';
 import AntIcon from 'antd/lib/icon';
 import { Accordion, Image, Icon, Rating, Button, Card, Transition, Label } from 'semantic-ui-react'
 import DateChooser from './DateChooser'
+import constant from '../constants/constant'
 
 
 export default class CollapseEvents extends Component {
@@ -31,7 +32,7 @@ export default class CollapseEvents extends Component {
       love: this.state.love,
       hate: this.state.hate
     }
-    fetch(`https://roadtrip-backend.herokuapp.com/events/${this.props.itemID}`,{
+    fetch(`${constant.api_route}/events/${this.props.itemID}`,{
       method: 'PATCH',
       headers: {'Content-Type':'application/json','Authorization':`Bearer ${localStorage.getItem('accessToken_roadTrip')}`},
       body: JSON.stringify(eventData)

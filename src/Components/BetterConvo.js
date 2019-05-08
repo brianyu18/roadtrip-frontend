@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {  Comment, Avatar, Form, List, Input,} from 'antd';
 import { Button } from 'semantic-ui-react'
+import constant from '../constants/constant'
 
 import moment from 'moment';
 
@@ -65,7 +66,7 @@ export default class BetterConvo extends Component {
       }
     }
     setInterval(
-    ()=>{fetch(`https://roadtrip-backend.herokuapp.com/messages/${localStorage.destination}`, options)
+    ()=>{fetch(`${constant.api_route}/messages/${localStorage.destination}`, options)
     .then(res => res.json())
     .then(messages_response => {
       if(messages_response.data.messages.length > this.state.messages.length){
@@ -97,7 +98,7 @@ export default class BetterConvo extends Component {
       })
     }
     console.log(options)
-    fetch("https://roadtrip-backend.herokuapp.com/messages", options)
+    fetch(`${constant.api_route}/messages`, options)
     .then(res => res.json())
     .then(message_response => {
       this.setState({

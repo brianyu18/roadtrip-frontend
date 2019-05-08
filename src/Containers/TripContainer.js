@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Header, Icon, Image, Menu, Segment, Sidebar, Grid } from 'semantic-ui-react'
 import Event from '../Components/Event'
+import constant from '../constants/constant'
 
 import Navbar from '../Components/Navbar'
 
@@ -18,8 +19,20 @@ class TripContainer extends Component {
     this.fetchTrips()
   }
 
+  deleteTrip=(place)=>{
+    fetch(`${constant.api_route}/trips/${place.id}`,{
+      method: "DELETE",
+      headers: {"Authorization": `Bearer ${localStorage.getItem('accessToken_roadTrip')}`}
+    })
+    this.setState({
+      trips: this.state.trips.filter(trip => {
+        return trip.id!==place.id
+      })
+    })
+  }
+
   fetchTrips=()=>{
-    fetch('https://roadtrip-backend.herokuapp.com/trips',{
+    fetch(`${constant.api_route}/trips`,{
       headers: {"Authorization": `Bearer ${localStorage.getItem('accessToken_roadTrip')}`}
     })
     .then(res => res.json())
@@ -32,22 +45,24 @@ class TripContainer extends Component {
   }
 
   createTrip=()=>{
-    let data={
-      destination: this.state.destination
-    }
-    fetch('https://roadtrip-backend.herokuapp.com/trips',{
-      method: "POST",
-      headers: {'Content-Type':'application/json','Authorization':`Bearer ${localStorage.getItem('accessToken_roadTrip')}`},
-      body: JSON.stringify(data),
-    })
-    .then(res => res.json())
-    .then(trip =>{
-      console.log(trip)
-      this.fetchTrips()
-      this.setState({
-        destination: ''
+    if(this.state.destination!==''){
+      let data={
+        destination: this.state.destination
+      }
+      fetch(`${constant.api_route}/trips`,{
+        method: "POST",
+        headers: {'Content-Type':'application/json','Authorization':`Bearer ${localStorage.getItem('accessToken_roadTrip')}`},
+        body: JSON.stringify(data),
       })
-    })
+      .then(res => res.json())
+      .then(trip =>{
+        console.log(trip)
+        this.fetchTrips()
+        this.setState({
+          destination: ''
+        })
+      })
+    }
   }
 
   changeHandler=(e)=>{
@@ -65,7 +80,7 @@ class TripContainer extends Component {
 
   showTrips=()=>{
     let showEvent = this.state.trips.map(trip => {
-      return <Event trip={trip} onSelect={this.onSelect}/>
+      return <Event deleteTrip={this.deleteTrip} trip={trip} onSelect={this.onSelect}/>
     })
     return showEvent
   }

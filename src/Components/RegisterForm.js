@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Image, Message, Segment, Card } from 'semantic-ui-react'
 import { withRouter } from 'react-router';
+import constant from '../constants/constant'
 
 
 class RegisterForm extends Component{
@@ -13,7 +14,7 @@ class RegisterForm extends Component{
   }
 
   register=()=>{
-    fetch('https://roadtrip-backend.herokuapp.com/users',{
+    fetch(`${constant.api_route}/users`,{
       method: "POST",
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(this.state),

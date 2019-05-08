@@ -14,6 +14,8 @@ import EventContainer from './EventContainer'
 import ChatWindow from '../Components/ChatWindow'
 import BetterConvo from '../Components/BetterConvo'
 import '../App.css'
+import constant from '../constants/constant'
+
 
 import {Marker} from "react-google-maps";
 
@@ -49,7 +51,7 @@ citySearching=()=>{
     'Content-Type': 'application/json'
   }
 
-  fetch(`https://roadtrip-backend.herokuapp.com/findcord?city=${city}`,
+  fetch(`${constant.api_route}/findcord?city=${city}`,
   {'headers': header})
   .then(res => res.json())
   .then(location =>{
@@ -75,7 +77,7 @@ searchTermFind=()=>{
     'Content-Type': 'application/json'
   }
 
-  fetch(`https://roadtrip-backend.herokuapp.com/find?location=${cord.lat},${cord.lng}&search=${search}`,
+  fetch(`${constant.api_route}/find?location=${cord.lat},${cord.lng}&search=${search}`,
   {'headers': header})
   .then(res => res.json())
   .then(locationDets=>{
@@ -121,7 +123,7 @@ componentDidMount() {
 const search = this.state.searchTerm.split(' ').join('+')
 const city = this.state.searchCity
 
-fetch("https://roadtrip-backend.herokuapp.com/events",{
+fetch(`${constant.api_route}/events`,{
   headers: {'Authorization':`Bearer ${localStorage.getItem('accessToken_roadTrip')}`},
 })
 .then(res => res.json())
@@ -147,7 +149,7 @@ fetch("https://roadtrip-backend.herokuapp.com/events",{
   fakeDataFetch=()=>{
     const search = this.state.searchTerm.split(' ').join('+')
     const city = this.state.searchCity
-    fetch("https://roadtrip-backend.herokuapp.com/locations")
+    fetch(`${constant.api_route}/locations`)
     .then(res => res.json())
     .then(data => {
     this.setState({
@@ -183,7 +185,7 @@ fetch("https://roadtrip-backend.herokuapp.com/events",{
       website: item.website,
       trip_id: localStorage.getItem('destination')
     }
-    fetch('https://roadtrip-backend.herokuapp.com/events',{
+    fetch(`${constant.api_route}/events`,{
       method: 'POST',
       headers: {'Content-Type':'application/json','Authorization':`Bearer ${localStorage.getItem('accessToken_roadTrip')}`},
       body: JSON.stringify(eventData)

@@ -6,6 +6,8 @@ import AntIcon from 'antd/lib/icon';
 import Carousel from 'antd/lib/carousel';
 import 'antd/lib/carousel/style/index.css'
 import DateChooser from './DateChooser'
+import constant from '../constants/constant'
+
 
 
 class EventClickModal extends Component {
@@ -19,7 +21,7 @@ class EventClickModal extends Component {
   componentDidMount(){
     const key = `${process.env.REACT_APP_GET_DATA}`;
 
-    fetch(`https://roadtrip-backend.herokuapp.com/findevent?place=${this.props.info.place_id}`)
+    fetch(`${constant.api_route}/findevent?place=${this.props.info.place_id}`)
     .then(res => res.json())
     .then(details => {
       console.log("success",details);
@@ -32,7 +34,7 @@ class EventClickModal extends Component {
   componentDidUpdate(prevProps){
     const key = `${process.env.REACT_APP_GET_DATA}`;
     if(this.props.info === undefined || this.props.info.place_id !=prevProps.info.place_id){
-      fetch(`https://roadtrip-backend.herokuapp.com/findevent?place=${this.props.info.place_id}`)
+      fetch(`${constant.api_route}/findevent?place=${this.props.info.place_id}`)
       .then(res => res.json())
       .then(details => {
         console.log("success",details);
@@ -76,7 +78,7 @@ handleOpen = () => this.setState({ modalOpen: true })
 handleClose = () => this.setState({ modalOpen: false })
 
 saveToBack = () =>{
-  fetch('https://roadtrip-backend.herokuapp.com/events'
+  fetch(`${constant.api_route}/events`
   )
   .then(res => res.json())
   .then(newEvent => console.log(newEvent))

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Image, Message, Segment, Card } from 'semantic-ui-react'
 import { withRouter } from 'react-router';
+import constant from '../constants/constant'
 
 
 class LoginForm extends Component{
@@ -10,7 +11,7 @@ class LoginForm extends Component{
   }
 
   login=()=>{
-    fetch('https://roadtrip-backend.herokuapp.com/login',{
+    fetch(`${constant.api_route}/login`,{
       method: "POST",
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(this.state),
