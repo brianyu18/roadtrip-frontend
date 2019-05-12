@@ -65,24 +65,24 @@ export default class BetterConvo extends Component {
         "Authorization": `Bearer ${localStorage.accessToken_roadTrip}`
       }
     }
-    setInterval(
-    ()=>{fetch(`${constant.api_route}/messages/${localStorage.destination}`, options)
-    .then(res => res.json())
-    .then(messages_response => {
-      if(messages_response.data.messages.length > this.state.messages.length){
-        this.setState({
-          messages: messages_response.data.messages
-        },()=>{console.log("see",this.state.messages)})
-      }
-    })}, 1000)
+    // setInterval(
+    // ()=>{fetch(`${constant.api_route}/messages/${localStorage.destination}`, options)
+    // .then(res => res.json())
+    // .then(messages_response => {
+    //   if(messages_response.data.messages.length > this.state.messages.length){
+    //     this.setState({
+    //       messages: messages_response.data.messages
+    //     },()=>{console.log("see",this.state.messages)})
+    //   }
+    // })}, 1000)
   }
 
-  componentDidUpdate(){
-    const chatWindow = document.querySelector(".message-box");
-    if(chatWindow){
-      chatWindow.scrollTop = chatWindow.scrollHeight;
-    }
-  }
+  // componentDidUpdate(){
+  //   const chatWindow = document.querySelector(".message-box");
+  //   if(chatWindow){
+  //     chatWindow.scrollTop = chatWindow.scrollHeight;
+  //   }
+  // }
 
   sendMessage = (comment) => {
     const options = {

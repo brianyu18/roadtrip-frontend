@@ -26,12 +26,16 @@ const price = [
   { key: '5', text: '$$$$$', value: '5', style:{'color':'#6435c9'} }
 ]
 
+const clicking=(props)=>{
+  props.setLoading(true)
+  props.fullFetch()
+}
+
 const InputExampleActions = (props) => (
   <Input style={{"width":"600px"}} type='text' placeholder='Search...' action>
     <input onChange={(e) => props.searchControl(e)}/>
     <input placeholder="City..." onChange={(e) => props.cityControl(e)}/>
-    <Select onChange={(e,{value})=>props.setPrice(e,value)} style={{"width":"110px","color":"#6435c9"}} compact options={price} placeholder='price' /><br/>
-    <Button onClick={()=>{props.fullFetch()}} color="violet" type='submit'>Search</Button>
+    <Button onClick={()=>{clicking(props)}} color="violet" type='submit'>Search</Button>
   </Input>
 )
 

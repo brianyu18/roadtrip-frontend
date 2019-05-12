@@ -26,7 +26,7 @@ buttonControl=()=>{
     console.log("look here", this.props.singleEvent);
     if(this.props.timeline[i].attributes["place-id"] === this.props.singleEvent.place_id){
       showButton=
-      <Button disabled fluid color="red" content="Added" icon="check">
+      <Button disabled fluid color="green" content="Added" icon="check">
       </Button>
       console.log("button here", showButton);
       break

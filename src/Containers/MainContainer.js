@@ -31,7 +31,9 @@ class MainContainer extends Component {
     searchCord: { lat: null, lng: null },
     date: '',
     price: 5,
-    reason: ''
+    reason: '',
+    friends: [],
+    loading: false
   }
 
 setPrice=(e, value)=>{
@@ -42,7 +44,7 @@ setPrice=(e, value)=>{
 }
 
 citySearching=()=>{
-  console.log("show city",this.state.searchCity);
+  this.setState({loading: true})
   const search = this.state.searchTerm.split(' ').join('+')
   const city = this.state.searchCity.split(' ').join('+')
 
@@ -58,7 +60,8 @@ citySearching=()=>{
     console.log("see cord", location)
     console.log("find cordinate", location.results[0].geometry.location)
     this.setState({
-      searchCord: location.results[0].geometry.location
+      searchCord: location.results[0].geometry.location,
+      loading: false
     })
     this.searchTermFind()
   })
@@ -82,9 +85,7 @@ searchTermFind=()=>{
   .then(res => res.json())
   .then(locationDets=>{
     console.log('locationDets', locationDets)
-    let newArr = locationDets.results.filter(location =>{
-      return location.price_level <= this.state.price
-    })
+    let newArr = locationDets.results
     this.setState({
       pictures: newArr
     })
@@ -118,7 +119,27 @@ fullFetch=()=>{
   this.citySearching()
 }
 
+setLoading=(isLoading)=>{
+  this.setState({loading: isLoading})
+}
+
+logPosition=(focus)=>{
+  console.log('show focus',focus.coords.latitude)
+  this.setState({
+    focus: { lat: focus.coords.latitude, lng: focus.coords.longitude }
+  },()=>console.log('focus2', this.state.focus))
+}
+getLocation=()=>{
+  if (navigator.geolocation) {
+    const focus = navigator.geolocation.getCurrentPosition(this.logPosition);
+  } else {
+    console.log("Geolocation is not supported by this browser.")
+  }
+}
+
 componentDidMount() {
+
+this.getLocation()
 
 const search = this.state.searchTerm.split(' ').join('+')
 const city = this.state.searchCity
@@ -144,6 +165,7 @@ fetch(`${constant.api_route}/events`,{
     })
   })
 .catch((error)=> {console.log("invalid login", error)})
+
 }
 
   fakeDataFetch=()=>{
@@ -214,9 +236,8 @@ fetch(`${constant.api_route}/events`,{
     })
   }
 
-
   showWindow=()=>{
-    if(this.state.timeLine.length===0 && this.state.window === "edit"){
+    if(this.state.timeLine.length===0 && !this.state.loading && this.state.window === "edit"){
       return <NoEvents buttonChange={this.buttonChange}/>
     } else if(this.state.window === "edit" ){
       return <div style={{"marginLeft":"8px"}}>
@@ -233,6 +254,8 @@ fetch(`${constant.api_route}/events`,{
         fullFetch={this.fullFetch}
         dateControl={this.dateControl}
         setPrice={this.setPrice}
+        loading={this.state.loading}
+        setLoading={this.setLoading}
         />
     </div>
     }
@@ -275,6 +298,7 @@ fetch(`${constant.api_route}/events`,{
         </div>
         <div style={{"width":"50vw", "height":"100vh", "margin": "auto 0"}}>
           <ButtonGroupMainSwitch buttonChange={this.buttonChange}/><br/>
+          {}
           {this.showWindow()}
         </div>
         <div style={{"width":"25vw", "height":"100vh", "margin": "auto 0"}}>

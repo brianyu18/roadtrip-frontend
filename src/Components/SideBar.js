@@ -2,12 +2,26 @@ import React, { Component } from 'react'
 import { Button, Header, Icon, Image, Menu, Segment, Sidebar, Transition } from 'semantic-ui-react'
 import GoogleMapsContainer from './GoogleMapsContainer'
 import ProfileButton from './ProfileButton'
+import FriendFind from './FriendFind'
+
 import '../App.css'
 
 import MainContainer from '../Containers/MainContainer'
 
 export default class SidebarExampleDimmed extends Component {
   state = { visible: false }
+
+  loadFriend=()=>{
+    console.log('sidebar', this.props.friendList)
+    let people = this.props.friendList.map(friend => {
+      console.log('name', friend.username)
+      return <Menu.Item as='a'>
+        <Icon name='user' />
+        {friend.username}
+      </Menu.Item>
+    })
+    return people
+  }
 
   handleClick = () => {
     console.log(this.state.visible)
@@ -35,11 +49,11 @@ export default class SidebarExampleDimmed extends Component {
           <div style={{"marginTop":"10px","marginBottom":"0px"}}>
           <Button.Group>
             <Button disabled={visible} onClick={this.handleShowClick}>
-              Show sidebar
+              Show Collaborators
             </Button>
             <Button.Or />
             <Button color='violet' disabled={!visible} onClick={this.handleHideClick}>
-              Hide sidebar
+              Hide Collaborators
             </Button>
           </Button.Group>
           </div>
@@ -60,18 +74,8 @@ export default class SidebarExampleDimmed extends Component {
             vertical
             visible={visible}
             width='thin'>
-            <Menu.Item as='a'>
-              <Icon name='home' />
-              Home
-            </Menu.Item>
-            <Menu.Item as='a'>
-              <Icon name='plane' />
-              Trips
-            </Menu.Item>
-            <Menu.Item as='a'>
-              <Icon name='bullhorn' />
-              Chat
-            </Menu.Item>
+            <FriendFind />
+            {this.loadFriend()}
           </Sidebar>
 
           <Sidebar.Pusher dimmed={visible}>

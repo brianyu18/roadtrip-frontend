@@ -88,7 +88,7 @@ saveToBack = () =>{
     return(
       <div>
         <Modal trigger={
-          <Button onClick={this.handleOpen} fluid animated color="green">
+          <Button onClick={this.handleOpen} fluid animated color="violet">
             <Button.Content visible>Details</Button.Content>
             <Button.Content hidden>
               <Icon name='check' />

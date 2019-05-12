@@ -4,6 +4,8 @@ import { Grid } from 'semantic-ui-react'
 import SearchField from '../Components/SearchField'
 import '../App.css'
 import NoSearchItems from '../Components/NoSearchItems'
+import Loading from '../Components/Loading'
+
 
 
 class AddEventContainer extends Component {
@@ -13,7 +15,8 @@ class AddEventContainer extends Component {
     search: '',
     city: '',
     category:'',
-    price: ''
+    price: '',
+    loading: this.props.loading
   }
 
   searchHandler=(e)=>{
@@ -34,6 +37,17 @@ class AddEventContainer extends Component {
     })
   }
 
+  showLoading=()=>{
+    this.setState({
+      loading: true
+    })
+  }
+
+  resetLoading=()=>{
+    this.setState({
+      loading: false
+    })
+  }
 
   renderEvent=()=>{
     console.log("render this", this.props.pictures)
@@ -48,6 +62,19 @@ class AddEventContainer extends Component {
     return this.props.pictures.length === 0 ? <NoSearchItems/> : showEvent
   }
 
+  renderGrid=()=>{
+    console.log("loading",this.props.loading)
+    if(this.props.pictures.length===0 && !this.props.loading){
+      return <NoSearchItems />
+    } else if(this.props.loading){
+      return <Loading />
+    } else {
+      return <Grid relaxed columns={2}>
+        {this.renderEvent()}
+      </Grid>
+    }
+  }
+
   render() {
     return (
 
@@ -60,11 +87,12 @@ class AddEventContainer extends Component {
           searchControl={this.props.searchControl}
           fullFetch={this.props.fullFetch}
           setPrice={this.props.setPrice}
+          showLoading={this.showLoading}
+          setLoading={this.props.setLoading}
+          resetLoading={this.resetLoading}
           />
         </div>
-        <Grid relaxed columns={2}>
-          {this.renderEvent()}
-        </Grid>
+        {this.renderGrid()}
       </div>
 
     );
