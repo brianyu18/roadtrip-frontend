@@ -11,13 +11,13 @@ export class MapWithInfo extends Component {
   };
 
   setMarkers=()=>{
-    console.log("starting")
+    console.log("starting", this.props.timeLine)
     let arr = this.props.timeLine.map(mark=>{
-      console.log("mark",mark.attributes.lat);
+      console.log("mark",parseFloat(mark.attributes.lat));
       return <Marker
-        title="Location"
-        id={1}
-        position={{ lat: parseInt(mark.attributes.lat), lng: parseInt(mark.attributes.lng) }}
+        title={mark.attributes.name}
+        id={this.props.timeLine.id}
+        position={{ lat: parseFloat(mark.attributes.lat), lng: parseFloat(mark.attributes.lng) }}
         onClick={this.onMarkerClick}
         name={
           mark.attributes.name
