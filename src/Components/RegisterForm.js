@@ -14,26 +14,32 @@ class RegisterForm extends Component{
   }
 
   register=()=>{
-    fetch(`${constant.api_route}/users`,{
-      method: "POST",
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify(this.state),
-    })
-    .then(res => {
-      if(res.ok){
-        return res.json()
-      } else {
-        throw new Error('Invalid Login');
-      }
-    })
-    .then(jwt =>{
-      console.log(jwt)
-      localStorage.setItem('access', jwt.token)
-      this.props.history.push('/trips')
-    })
-    .catch((error)=>{
-      console.log("failed", error)
-    })
+    if(this.state.username.length>0 && this.state.password.length>0){
+      fetch(`${constant.api_route}/users`,{
+        method: "POST",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(this.state),
+      })
+      .then(res => {
+        if(res.ok){
+          return res.json()
+        } else {
+          throw new Error('Invalid Login');
+        }
+      })
+      .then(jwt =>{
+        console.log(jwt)
+        localStorage.setItem('access', jwt.token)
+        this.props.history.push('/trips')
+      })
+      .catch((error)=>{
+        console.log("failed", error)
+      })
+    } else {
+      this.setState({
+        error: true
+      })
+    }
   }
 
   usernameHandle=(e)=>{
@@ -66,6 +72,15 @@ class RegisterForm extends Component{
     })
   }
 
+  showError=()=>{
+    if(this.state.error){
+    return   <Message negative>
+    <Message.Header>Invalid Name or Password</Message.Header>
+      <p>Name & Password field cannot be blank, and must be be between 6 and 12 characters</p>
+    </Message>
+    }
+  }
+
   render() {
     return (
       <div style={{"backgroundColor":"#6435c9"}} className='login-form'>
@@ -88,6 +103,7 @@ class RegisterForm extends Component{
               <div ><Image src='images/RoadTrip.jpeg' /></div>
             </Card>
               <div style={{"color":"#ffffff","font-family":"'Baloo Thambi', cursive","marginTop":"10px"}}>Create A New Account</div>
+              {this.showError()}
             </Header>
             <Form size='large'>
               <Segment stacked>

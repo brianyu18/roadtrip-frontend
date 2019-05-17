@@ -10,7 +10,8 @@ import ReactDOM from 'react-dom';
 
 class AppWrapper extends Component {
   state = {
-    friends: []
+    friends: [],
+    allUsers: []
   }
 
   componentDidMount() {
@@ -26,13 +27,24 @@ class AppWrapper extends Component {
     },console.log("show friends2", this.state.friends))
 
     .catch((error)=> {console.log("invalid login", error)})
+
+    fetch(`${constant.api_route}/users`,{
+      headers: {'Authorization':`Bearer ${localStorage.getItem('accessToken_roadTrip')}`},
+    })
+    .then(res => res.json())
+    .then(users => {
+      console.log("users",users.data)
+      this.setState({
+        allUsers: users.data
+      })
+    })
   }
 
   render() {
-    console.log("props", this.props.match.params.id)
+    console.log("props", this.state)
     return (
       <div style={{"backgroundColor":"#9868ff"}}>
-        <SideBar tripID={this.props.match.params.id} friendList={this.state.friends}/>
+        <SideBar tripID={this.props.match.params.id} friendList={this.state.friends} users={this.state.allUsers}/>
       </div>
     )
   }

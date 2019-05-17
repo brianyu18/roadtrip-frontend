@@ -3,16 +3,33 @@ import { Button, Header, Icon, Image, Menu, Segment, Sidebar, Transition } from 
 import GoogleMapsContainer from './GoogleMapsContainer'
 import ProfileButton from './ProfileButton'
 import FriendFind from './FriendFind'
+import FriendSearch from './FriendSearch'
+
 
 import '../App.css'
 
 import MainContainer from '../Containers/MainContainer'
 
 export default class SidebarExampleDimmed extends Component {
-  state = { visible: false }
+
+  see=()=>{
+    console.log("see users", this.props.users)
+
+  }
+
+  componentDidMount(){
+    this.see()
+    this.setState({
+      allUsers: this.props.allUsers
+    })
+  }
+
+  state = { visible: false, allUsers: [] }
 
   loadFriend=()=>{
     console.log('sidebar', this.props.friendList)
+    console.log('sidebar', this.state)
+
     let people = this.props.friendList.map(friend => {
       console.log('name', friend.username)
       return <Menu.Item as='a'>
@@ -45,7 +62,6 @@ export default class SidebarExampleDimmed extends Component {
     return (
       <div style={{"height":"100vh"}}>
         <div style={{"display":"flex"}}>
-
           <div style={{"marginTop":"10px","marginBottom":"0px"}}>
           <Button.Group>
             <Button disabled={visible} onClick={this.handleShowClick}>

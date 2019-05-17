@@ -168,6 +168,7 @@ fetch(`${constant.api_route}/events`,{
 
 }
 
+
   fakeDataFetch=()=>{
     const search = this.state.searchTerm.split(' ').join('+')
     const city = this.state.searchCity

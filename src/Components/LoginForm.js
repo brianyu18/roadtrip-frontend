@@ -7,7 +7,8 @@ import constant from '../constants/constant'
 class LoginForm extends Component{
   state={
     username: '',
-    password: ''
+    password: '',
+    failed: false
   }
 
   login=()=>{
@@ -20,7 +21,11 @@ class LoginForm extends Component{
       if(res.ok){
         return res.json()
       } else {
+        this.setState({
+          failed: true
+        },()=>console.log("see ham"))
         throw new Error('Invalid Login');
+
       }
     })
     .then(jwt =>{
@@ -45,6 +50,16 @@ class LoginForm extends Component{
     this.setState({
       password: e.target.value
     })
+  }
+
+  showError=()=>{
+    if(this.state.failed===true){
+      console.log("enter error")
+    return <Message negative>
+    <Message.Header>Invalid Name or Password</Message.Header>
+      <p>Invalid Name or Password, please try again</p>
+    </Message>
+    }
   }
 
   render() {
@@ -81,7 +96,7 @@ class LoginForm extends Component{
                   placeholder='Password'
                   type='password'
                 />
-
+                {this.showError()}
                 <Button onClick={this.login} color='violet' fluid size='large'>
                   Login
                 </Button>

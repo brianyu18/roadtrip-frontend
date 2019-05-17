@@ -1,19 +1,31 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import { Search, Grid, Header, Segment } from 'semantic-ui-react'
 
 const initialState = { isLoading: false, results: [], value: '' }
 
-// const source = _.times(5, () => ({
-//   title: faker.company.companyName(),
-//   description: faker.company.catchPhrase(),
-//   image: faker.internet.avatar(),
-//   price: faker.finance.amount(0, 100, 2, '$'),
-// }))
+let source = []
 
 export default class SearchExampleStandard extends Component {
   state = initialState
 
-  handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+  source=()=>{
+    console.log("see props", this.props.users)
+    let showUsers = this.props.users.map(user => {
+      console.log('single source', user.attributes)
+      return user.attributes
+    })
+    console.log("see users", showUsers)
+    this.setState({
+      results: showUsers
+    },()=>{console.log("see load", this.state.results)})
+  }
+
+  componentDidMount(){
+    this.source()
+  }
+
+  handleResultSelect = (e, { result }) => this.setState({ value: result.username })
 
   handleSearchChange = (e, { value }) => {
     this.setState({ isLoading: true, value })
@@ -32,6 +44,7 @@ export default class SearchExampleStandard extends Component {
   }
 
   render() {
+    {console.log('see source', this.state.results)}
     const { isLoading, value, results } = this.state
 
     return (
